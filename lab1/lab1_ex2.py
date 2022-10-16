@@ -17,4 +17,3 @@ while True:
     print(f'{str(formatted_datetime)} - {mac_id}: battery = {battery_level}')
     print(f'{str(formatted_datetime)} - {mac_id}: power_plugged = {power_plugged}')
     sleep(2)
-
