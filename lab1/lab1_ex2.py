@@ -14,14 +14,15 @@ mac_id = hex(uuid.getnode())
 redis_client = redis.Redis(host = REDIS_HOST, port = REDIS_PORT, username = REDIS_USER, password = REDIS_PASSWORD)
 
 while True:
-    ts = time()
+    ts_bad = time()
     battery_level = psutil.sensors_battery().percent
     #print(battery_level.percent)
     power_plugged = psutil.sensors_battery().power_plugged
-    formatted_datetime = datetime.fromtimestamp(ts)
-    ts_in_s = ts*1000
-    redis_client.ts().add("battery_level", ts, f'{str(formatted_datetime)} - {mac_id}: battery = {battery_level}')
-    redis_client.ts().add("battery_level", ts, f'{str(formatted_datetime)} - {mac_id}: power_plugged = {power_plugged}')
+    #formatted_datetime = datetime.fromtimestamp(ts_bad)
+    ts = int(ts_bad*1000)
+    
+    redis_client.ts().add("battery_level", ts, f'{str(ts)} - {mac_id}: battery = {battery_level}')
+    redis_client.ts().add("battery_level", ts, f'{str(ts)} - {mac_id}: power_plugged = {power_plugged}')
 
     #print(power_plugged)
     print(f'{str(formatted_datetime)} - {mac_id}: battery = {battery_level}')
